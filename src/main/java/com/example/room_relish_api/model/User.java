@@ -22,7 +22,6 @@ public class User {
     private String googleId;
     private List<String> favouriteHotels;
     private List<String> recentVisitsOfHotels;
-    private List<Card> addedCards;
     private Date registeredAt;
     private Date dateOfBirth;
     private String address;

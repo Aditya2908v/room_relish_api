@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -31,4 +32,13 @@ public class Hotel {
     private List<Room> rooms;
     private List<GuestReview> guestReviews;
     private int totalRooms;
+
+    public List<Room> getAvailableRooms() {
+        List<Room> availableRooms = new ArrayList<>();
+        for(Room room : rooms){
+            if(room.getRoomCount()>0)
+                availableRooms.add(room);
+        }
+        return availableRooms;
+    }
 }

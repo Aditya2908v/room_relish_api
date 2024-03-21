@@ -1,6 +1,7 @@
 package com.example.room_relish_api.Service;
 
 import com.example.room_relish_api.model.Hotel;
+import com.example.room_relish_api.model.Room;
 import com.example.room_relish_api.repository.HotelRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +24,10 @@ public class HotelServiceImpl implements HotelService {
     @Override
     public Optional<Hotel> getHotel(String id) {
         return hotelRepository.findById(id);
+    }
+
+    @Override
+    public void saveRoom(Hotel hotel) {
+        hotelRepository.save(hotel);
     }
 }
