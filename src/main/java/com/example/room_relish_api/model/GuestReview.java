@@ -10,9 +10,9 @@ import org.springframework.data.annotation.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GuestReview {
-    @Id
+
     private String id;
-    private String userId;
-    private double guestRating;
+    private String user;
+    private String guestRating;
     private String comment;
 }

@@ -1,6 +1,6 @@
 
 type Hotel {
-    id: ID!
+    id: String!
     hotelName: String!
     hotelType: String!
     location: Location!
@@ -13,7 +13,7 @@ type Hotel {
     amenities: [String!]!
     images: [String!]!
     rooms: [Room!]!
-    guestReviews: [GuestReview!]!
+    guestReviews: [GuestReview]!
     totalRooms: Int!
 }
 
@@ -26,6 +26,7 @@ type Location {
 
 
 type Room {
+    id:String!
     roomType: String!
     roomSpecification: String!
     roomRate: Int!
@@ -34,14 +35,14 @@ type Room {
 
 
 type GuestReview {
-    id: ID!
-    userId: String
+    id: String!
+    user: String
     guestRating: Float!
     comment: String!
 }
 
 type User {
-    id: ID!
+    id: String!
     userName: String!
     email: String
     googleId: String
@@ -74,3 +75,4 @@ type Query {
     users:[User!]!
     user(id:ID!): User
 }
+
