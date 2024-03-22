@@ -5,8 +5,13 @@ import com.example.room_relish_api.repository.PaymentRepository;
 
 import java.util.Optional;
 
-public class PaymentServiceImpl {
-    private PaymentRepository paymentRepository;
+public class PaymentServiceImpl implements PaymentService {
+    private final PaymentRepository paymentRepository;
+    public PaymentServiceImpl(PaymentRepository paymentRepository)
+    {
+        this.paymentRepository=paymentRepository;
+    }
+
 
     public Payment getPaymentDetails(String paymentId){
         Optional<Payment> payment = paymentRepository.findById(paymentId);
