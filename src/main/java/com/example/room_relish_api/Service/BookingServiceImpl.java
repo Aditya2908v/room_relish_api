@@ -55,7 +55,7 @@ public class BookingServiceImpl implements BookingService{
                         hotelService.saveRoom(hotel);
                         bookingRepository.save(booking);
                     }
-                    Payment payment = new Payment(booking.get_userId(), booking.get_hotelId(), totalPrice);
+                    Payment payment = new Payment(booking.get_userId(), booking.get_hotelId(), totalPrice,booking.getId());
                     paymentRepository.save(payment);
 
                 }

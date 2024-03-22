@@ -15,11 +15,13 @@ public class Payment {
     private String _userId;
     private String _hotelId;
     private float totalAmount;
+    private String _bookingId;
 
 
-    public Payment(String _userId, String _hotelId, float totalAmount) {
+    public Payment(String _userId, String _hotelId, float totalAmount, String _bookingId) {
         this._userId = _userId;
         this._hotelId = _hotelId;
         this.totalAmount = totalAmount;
+        this._bookingId = _bookingId;
     }
 }
