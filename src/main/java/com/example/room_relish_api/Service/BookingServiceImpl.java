@@ -42,12 +42,15 @@ public class BookingServiceImpl implements BookingService{
 
             //find and book the requested room
             float totalPrice = 0.0f;
+            float gst = 0.0f;
             for(Room room : availableRooms) {
                 if (room.getId().equals(booking.get_roomId())) {
                     if (booking.getNumOfRooms() > room.getRoomCount()) {
                         throw new IllegalArgumentException("requested number of rooms are not available");
                     } else {
-                        totalPrice += booking.getNumOfRooms() * room.getRoomRate();
+                        totalPrice += booking.getNumOfRooms() * room.getRoomRate()*booking.getNumOfDays();
+                        gst+=(totalPrice*12)/100;
+                        totalPrice+=gst+totalPrice;
                         room.setRoomCount(room.getRoomCount() - booking.getNumOfRooms());
                         hotelService.saveRoom(hotel);
                         bookingRepository.save(booking);

@@ -18,4 +18,5 @@ public class Booking {
     private String _userId;
     private String _roomId;
     private int numOfRooms;
+    private int numOfDays;
 }
