@@ -44,8 +44,7 @@ public class BookingServiceImpl implements BookingService{
             float gst = 0.0f;
             Optional<Room> optionalRoom = availableRooms.stream()
                     .filter(p -> p.getId().equals(booking.get_roomId()))
-                    .filter(p -> p.getRoomCount() > booking.getNumOfRooms())
-                    .findFirst();
+                    .filter(p -> p.getRoomCount() > booking.getNumOfRooms()).findFirst();
             if (optionalRoom.isPresent()) {
             Room room = optionalRoom.get();
             totalPrice+=booking.getNumOfRooms()*room.getRoomRate()*booking.getNumOfDays();
@@ -56,6 +55,9 @@ public class BookingServiceImpl implements BookingService{
             bookingRepository.save(booking);
             Payment payment = new Payment(booking.get_userId(), booking.get_hotelId(), totalPrice,booking.getId());
             paymentRepository.save(payment);
+            }
+            else{
+                throw new NullPointerException("Requested room or requested number of rooms is not available");
             }
         }
         return booking;
