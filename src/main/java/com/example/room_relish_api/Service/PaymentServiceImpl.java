@@ -5,8 +5,8 @@ import com.example.room_relish_api.repository.PaymentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-@Service
 
+@Service
 public class PaymentServiceImpl implements PaymentService {
     private final PaymentRepository paymentRepository;
     public PaymentServiceImpl(PaymentRepository paymentRepository)

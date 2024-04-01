@@ -25,4 +25,5 @@ public class UserController {
     public Optional<User> getUser(@Argument String id){
         return userService.getUser(id);
     }
+
 }
