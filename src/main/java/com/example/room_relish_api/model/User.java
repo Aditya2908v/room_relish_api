@@ -18,6 +18,7 @@ public class User {
     @Id
     private String id;
     private String userName;
+    private String password;
     private String email;
     private String googleId;
     private List<String> favouriteHotels;
