@@ -48,9 +48,9 @@ public class BookingServiceImpl implements BookingService{
                     .filter(p -> p.getRoomCount() > payment.getNumOfRooms()).findFirst();
             if (optionalRoom.isPresent()) {
             Room room = optionalRoom.get();
-            totalPrice+=payment.getNumOfRooms()*room.getRoomRate()*payment.getNumOfDays();
-            gst+=(totalPrice*12)/100;
-            totalPrice+=gst+totalPrice;
+            totalPrice=payment.getNumOfRooms()*room.getRoomRate()*payment.getNumOfDays();
+            gst=(totalPrice*12)/100;
+            totalPrice=gst+totalPrice;
             room.setRoomCount(room.getRoomCount()-payment.getNumOfRooms());
             hotelService.saveRoom(hotel);
             payment.setGstOfTotalAmount(gst);
