@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class UserController {
+public class UserGQLController {
     private final UserService userService;
     @Autowired
-    public UserController(UserService userService) {
+    public UserGQLController(UserService userService) {
         this.userService = userService;
     }
     @QueryMapping("users")
@@ -25,4 +25,5 @@ public class UserController {
     public Optional<User> getUser(@Argument String id){
         return userService.getUser(id);
     }
+
 }

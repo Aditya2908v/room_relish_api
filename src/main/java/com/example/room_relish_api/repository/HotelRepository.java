@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface HotelRepository extends MongoRepository<Hotel, String> {
-
+    List<Hotel> findByLocationCityNameIgnoreCase(String cityName);
 }

@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "room_payments")
 public class Payment {
@@ -14,12 +15,9 @@ public class Payment {
     private String id;
     private String _userId;
     private String _hotelId;
+    private String _roomId;
+    private int numOfRooms;
+    private int numOfDays;
     private float totalAmount;
-
-
-    public Payment(String _userId, String _hotelId, float totalAmount) {
-        this._userId = _userId;
-        this._hotelId = _hotelId;
-        this.totalAmount = totalAmount;
-    }
+    private float gstOfTotalAmount;
 }

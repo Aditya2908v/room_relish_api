@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface HotelService {
+    List<Hotel> getHotelsByCity(String cityName);
     List<Hotel> getAllHotels();
 
     Optional<Hotel> getHotel(String id);

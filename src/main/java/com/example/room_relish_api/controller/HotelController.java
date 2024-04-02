@@ -31,4 +31,8 @@ public class HotelController {
         return hotelService.getHotel(id);
     }
 
+    @QueryMapping("search")
+    public List<Hotel> hotelsByCity(@Argument String cityName) {
+        return hotelService.getHotelsByCity(cityName);
+    }
 }

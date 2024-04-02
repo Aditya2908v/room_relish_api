@@ -24,4 +24,20 @@ public class UserServiceImpl implements UserService{
     public Optional<User> getUser(String id) {
         return userRepository.findById(id);
     }
+
+    public User loginData(User user){
+        Optional<User> optionalUser = userRepository.findByEmail(user.getEmail());
+        if(optionalUser.isPresent()){
+            User user1 = optionalUser.get();
+            if((user.getPassword()).equals(user1.getPassword())){
+                return user1;
+            }
+            else{
+                throw new NullPointerException("Incorrect Password");
+            }
+        }
+        else{
+           throw new NullPointerException("Incorrect password or emailId");
+        }
+    }
 }

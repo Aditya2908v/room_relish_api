@@ -30,4 +30,10 @@ public class HotelServiceImpl implements HotelService {
     public void saveRoom(Hotel hotel) {
         hotelRepository.save(hotel);
     }
+
+    @Override
+    public List<Hotel> getHotelsByCity(String cityName)
+    {
+        return hotelRepository.findByLocationCityNameIgnoreCase(cityName);
+    }
 }

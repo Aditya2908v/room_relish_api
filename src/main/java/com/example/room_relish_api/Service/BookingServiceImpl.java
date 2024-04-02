@@ -10,6 +10,7 @@ import com.example.room_relish_api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Book;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -34,31 +35,37 @@ public class BookingServiceImpl implements BookingService{
     }
 
     @Override
-    public Booking bookRoom(Booking booking) {
-        Optional<Hotel> optionalHotel = hotelService.getHotel(booking.get_hotelId());
+    public Payment bookRoom(Payment payment) {
+        Optional<Hotel> optionalHotel = hotelService.getHotel(payment.get_hotelId());
         if(optionalHotel.isPresent()){
             Hotel hotel = optionalHotel.get();
             List<Room> availableRooms = hotel.getAvailableRooms();
-
             //find and book the requested room
             float totalPrice = 0.0f;
-            for(Room room : availableRooms) {
-                if (room.getId().equals(booking.get_roomId())) {
-                    if (booking.getNumOfRooms() > room.getRoomCount()) {
-                        throw new IllegalArgumentException("requested number of rooms are not available");
-                    } else {
-                        totalPrice += booking.getNumOfRooms() * room.getRoomRate();
-                        room.setRoomCount(room.getRoomCount() - booking.getNumOfRooms());
-                        hotelService.saveRoom(hotel);
-                        bookingRepository.save(booking);
-                    }
-                    Payment payment = new Payment(booking.get_userId(), booking.get_hotelId(), totalPrice);
-                    paymentRepository.save(payment);
-
-                }
+            float gst = 0.0f;
+            Optional<Room> optionalRoom = availableRooms.stream()
+                    .filter(p -> p.getId().equals(payment.get_roomId()))
+                    .filter(p -> p.getRoomCount() > payment.getNumOfRooms()).findFirst();
+            if (optionalRoom.isPresent()) {
+            Room room = optionalRoom.get();
+            totalPrice+=payment.getNumOfRooms()*room.getRoomRate()*payment.getNumOfDays();
+            gst+=(totalPrice*12)/100;
+            totalPrice+=gst+totalPrice;
+            room.setRoomCount(room.getRoomCount()-payment.getNumOfRooms());
+            hotelService.saveRoom(hotel);
+            payment.setGstOfTotalAmount(gst);
+            payment.setTotalAmount(totalPrice);
+            paymentRepository.save(payment);
+            }
+            else{
+                throw new NullPointerException("Requested room or requested number of rooms is not available");
             }
         }
+        return payment;
+    }
+    public Booking payRoom(Payment payment){
+        Booking booking = new Booking(payment.get_hotelId(),payment.get_userId(),payment.get_roomId(),payment.getId(),payment.getNumOfRooms(),payment.getNumOfDays(),true);
+        bookingRepository.save(booking);
         return booking;
     }
-
 }
